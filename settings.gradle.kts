@@ -21,4 +21,9 @@ dependencyResolutionManagement {
 
 rootProject.name = "Jupiter_Reporting"
 include(":app")
- 
+include(":data")
+include(":network")
+include(":auth")
+include(":utils")
+include(":sync")
+
