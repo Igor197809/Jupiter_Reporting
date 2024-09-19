@@ -81,7 +81,7 @@ dependencies {
     // Библиотеки для Google API
     implementation("com.google.android.gms:play-services-auth:20.1.0")
     implementation("com.google.api-client:google-api-client-android:1.31.5")
-    implementation("com.google.apis:google-api-services-sheets:v4-rev20220810-1.32.1")
+    implementation("com.google.apis:google-api-services-sheets:v4-rev20240826-2.0.0")
 
     // Room
     implementation("androidx.room:room-runtime:2.4.2")
