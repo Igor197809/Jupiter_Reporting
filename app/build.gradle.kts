@@ -80,7 +80,7 @@ dependencies {
 
     // Библиотеки для Google API
     implementation("com.google.android.gms:play-services-auth:20.1.0")
-    implementation("com.google.api-client:google-api-client-android:1.31.5")
+    implementation("com.google.api-client:google-api-client-android:1.34.1")
     implementation("com.google.apis:google-api-services-sheets:v4-rev20240826-2.0.0")
 
     // Room
@@ -104,10 +104,10 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:20.6.0")
 
     // Библиотеки Google API Client
-    implementation("com.google.api-client:google-api-client-android:1.34.0") {
+    implementation("com.google.api-client:google-api-client-android:1.34.1") {
         exclude(group = "org.apache.httpcomponents")
     }
-    implementation("com.google.oauth-client:google-oauth-client-jetty:1.34.1") {
+    implementation("com.google.oauth-client:google-oauth-client-jetty:1.36.0") {
         exclude(group = "org.apache.httpcomponents")
     }
     implementation("com.google.apis:google-api-services-sheets:v4-rev20230821-2.0.0") {
