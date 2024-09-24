@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    kotlin("kapt") // для Room
 }
 
 android {
@@ -33,20 +34,33 @@ android {
 }
 
 dependencies {
-    // Зависимости AndroidX и Material
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.appcompat:appcompat:1.5.1")
-    implementation("com.google.android.material:material:1.7.0")
+    // Room для работы с базой данных
+    implementation("androidx.room:room-runtime:2.5.0")
+    kapt("androidx.room:room-compiler:2.5.0")
+
+    // Kotlin extensions и coroutines поддержка для Room
+    implementation("androidx.room:room-ktx:2.5.0")
 
     // Зависимости проектов
     implementation(project(":data"))
     implementation(project(":network"))
     implementation(project(":utils"))
 
-    // Тестовые зависимости
+    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.appcompat:appcompat:1.5.1")
+
+    // WorkManager для выполнения фоновых задач
+    implementation("androidx.work:work-runtime-ktx:2.7.1")
+
+    // Google Play Services для GoogleSignIn
+    implementation("com.google.android.gms:play-services-auth:20.6.0")
+
+    // Google API Client
+    implementation("com.google.api-client:google-api-client-android:1.31.1")
+    implementation("com.google.http-client:google-http-client-jackson2:1.40.0")
+    implementation("com.google.apis:google-api-services-sheets:v4-rev20230120-2.0.0")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.4")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
-
-    // Другие зависимости
 }

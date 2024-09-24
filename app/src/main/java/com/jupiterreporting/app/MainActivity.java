@@ -1,11 +1,13 @@
-// MainActivity.java
 package com.jupiterreporting.app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.jupiterreporting.auth.AuthManager;
 import com.jupiterreporting.data.database.DatabaseProvider;
 import com.jupiterreporting.data.entities.Report;
@@ -19,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity {
 
     private AuthManager authManager;
-    private GoogleAccountCredential credential;
+    private GoogleSignInAccount account;
     private String spreadsheetId = "ВАШ_SPREADSHEET_ID";
     private String sheetName = "Sheet1";
 
@@ -28,27 +30,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-         // Инициализация AuthManager
+        // Инициализация AuthManager
         authManager = new AuthManager(this);
         authManager.signIn(this);
 
-
-        // В onCreate после инициализации authManager
-
+        // Находим элементы интерфейса
         Button saveButton = findViewById(R.id.saveButton);
         EditText field1EditText = findViewById(R.id.field1EditText);
         EditText field2EditText = findViewById(R.id.field2EditText);
 
+        // Обработка нажатия на кнопку сохранения
         saveButton.setOnClickListener(v -> {
             String field1 = field1EditText.getText().toString();
             String field2 = field2EditText.getText().toString();
             saveReport(field1, field2);
         });
-
-
-
-
-
 
         // Запуск WorkManager для синхронизации
         PeriodicWorkRequest syncWorkRequest =
@@ -62,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         authManager.handleSignInResult(requestCode, resultCode, data, new AuthManager.SignInCallback() {
             @Override
-            public void onSuccess(GoogleAccountCredential credential) {
-                MainActivity.this.credential = credential;
-                // Теперь вы можете использовать credential для доступа к Google Sheets API
+            public void onSuccess(GoogleSignInAccount account) {
+                MainActivity.this.account = account;
+                // Теперь вы можете использовать account для доступа к Google Sheets API
             }
 
             @Override

@@ -3,8 +3,12 @@ package com.jupiterreporting.data.entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Entity(tableName = "reports")
 public class Report {
+
     @PrimaryKey(autoGenerate = true)
     private int id;
 
@@ -12,17 +16,8 @@ public class Report {
     private String field2;
     private boolean isSynced;
 
-    // Конструктор по умолчанию
-    public Report() {}
+    // Конструкторы, геттеры и сеттеры
 
-    // Конструктор с параметрами
-    public Report(String field1, String field2, boolean isSynced) {
-        this.field1 = field1;
-        this.field2 = field2;
-        this.isSynced = isSynced;
-    }
-
-    // Геттеры и сеттеры
     public int getId() {
         return id;
     }
@@ -51,7 +46,12 @@ public class Report {
         return isSynced;
     }
 
-    public void setSynced(boolean synced) {
-        isSynced = synced;
+    public void setIsSynced(boolean isSynced) {
+        this.isSynced = isSynced;
+    }
+
+    // Метод для преобразования объекта Report в список для Google Sheets API
+    public List<Object> toObjectList() {
+        return Arrays.asList(field1, field2);
     }
 }

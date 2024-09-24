@@ -1,4 +1,3 @@
-// SyncWorker.java
 package com.jupiterreporting.sync;
 
 import android.content.Context;
@@ -7,7 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.jupiterreporting.data.database.DatabaseProvider;
 import com.jupiterreporting.data.entities.Report;
 import com.jupiterreporting.network.SheetsApiHelper;
@@ -18,13 +18,15 @@ import java.util.List;
 
 public class SyncWorker extends Worker {
 
-    private GoogleAccountCredential credential;
+    private GoogleSignInAccount account;
     private String spreadsheetId;
     private String sheetName;
 
     public SyncWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
-        // Получите credential, spreadsheetId и sheetName из inputData или сохраненных настроек
+        // Получение учетной записи пользователя Google
+        account = GoogleSignIn.getLastSignedInAccount(context);
+        // Получите spreadsheetId и sheetName из inputData или сохраненных настроек
     }
 
     @NonNull
@@ -35,7 +37,7 @@ public class SyncWorker extends Worker {
                     .reportDao().getUnsyncedReports();
 
             SheetsApiHelper sheetsApiHelper = new SheetsApiHelper(
-                    SheetsClient.getSheetsService(getApplicationContext(), credential), spreadsheetId);
+                    SheetsClient.getSheetsService(getApplicationContext(), account), spreadsheetId);
 
             for (Report report : unsyncedReports) {
                 boolean success = sheetsApiHelper.appendData(sheetName, report.toObjectList());
