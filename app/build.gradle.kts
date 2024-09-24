@@ -48,7 +48,7 @@ android {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
 
-    packagingOptions {
+    packaging {
         resources {
             excludes += listOf("/META-INF/{AL2.0,LGPL2.1}")
         }
@@ -79,8 +79,10 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     // Библиотеки для Google API
-    implementation("com.google.android.gms:play-services-auth:20.1.0")
-    implementation("com.google.api-client:google-api-client-android:1.34.1")
+    implementation("com.google.android.gms:play-services-auth:20.6.0")
+    implementation("com.google.api-client:google-api-client-android:1.35.0") {
+        exclude(group = "org.apache.httpcomponents")
+    }
     implementation("com.google.apis:google-api-services-sheets:v4-rev20240826-2.0.0")
 
     // Room
@@ -98,21 +100,4 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-}
-dependencies {
-    // Google Sign-In
-    implementation("com.google.android.gms:play-services-auth:20.6.0")
-
-    // Библиотеки Google API Client
-    implementation("com.google.api-client:google-api-client-android:1.34.1") {
-        exclude(group = "org.apache.httpcomponents")
-    }
-    implementation("com.google.oauth-client:google-oauth-client-jetty:1.36.0") {
-        exclude(group = "org.apache.httpcomponents")
-    }
-    implementation("com.google.apis:google-api-services-sheets:v4-rev20230821-2.0.0") {
-        exclude(group = "org.apache.httpcomponents")
-    }
-
-    // Остальные зависимости...
 }
