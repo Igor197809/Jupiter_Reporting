@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+// XML file: res/layout/activity_main.xml
+
+    <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
@@ -9,18 +11,20 @@
         android:id="@+id/field1EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Field 1" />
+        android:hint="@string/field1_hint"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/field2EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Field 2" />
+        android:hint="@string/field2_hint"
+        android:inputType="text" />
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save Report" />
+        android:text="@string/save_button_text" />
 
 </LinearLayout>
