@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Jupiter Reporting</string>
-    <string name="saveButton">Save Report</string>
-    <string name="field1EditText">Field 1</string>
-    <string name="field2EditText">Field 2</string>
+    <string name="save_button_text">Save Report</string>
+    <string name="field1_hint">Field 1</string>
+    <string name="field2_hint">Field 2</string>
 </resources>

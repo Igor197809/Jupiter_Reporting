@@ -38,15 +38,11 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
-        freeCompilerArgs = freeCompilerArgs + listOf("-Xlint:deprecation")  // Явное добавление списка
+        freeCompilerArgs = freeCompilerArgs + listOf("-Xlint:deprecation")
     }
 
     buildFeatures {
-        compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        viewBinding = true
     }
 
     packaging {

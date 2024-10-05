@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AuthManager authManager;
     private GoogleSignInAccount account;
-    private String spreadsheetId = "ВАШ_SPREADSHEET_ID";
+    private String spreadsheetId = "1J5wxqk1_nCPEUBnilSHI8RgnWU7CUV-vxrAVGl6LX5M";
     private String sheetName = "Sheet1";
 
     @Override
@@ -30,48 +30,48 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Инициализация AuthManager
+        // Initialize AuthManager
         authManager = new AuthManager(this);
         authManager.signIn(this);
 
-        // Находим элементы интерфейса
+        // Find UI elements
         Button saveButton = findViewById(R.id.saveButton);
         EditText field1EditText = findViewById(R.id.field1EditText);
         EditText field2EditText = findViewById(R.id.field2EditText);
 
-        // Обработка нажатия на кнопку сохранения
+        // Set save button click listener
         saveButton.setOnClickListener(v -> {
             String field1 = field1EditText.getText().toString();
             String field2 = field2EditText.getText().toString();
             saveReport(field1, field2);
         });
 
-        // Запуск WorkManager для синхронизации
+        // Schedule WorkManager for periodic sync
         PeriodicWorkRequest syncWorkRequest =
                 new PeriodicWorkRequest.Builder(SyncWorker.class, 15, TimeUnit.MINUTES)
                         .build();
         WorkManager.getInstance(this).enqueue(syncWorkRequest);
     }
 
-    // Обработка результата входа
+    // Handle sign-in result
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         authManager.handleSignInResult(requestCode, resultCode, data, new AuthManager.SignInCallback() {
             @Override
             public void onSuccess(GoogleSignInAccount account) {
                 MainActivity.this.account = account;
-                // Теперь вы можете использовать account для доступа к Google Sheets API
+                // Now you can use the account to access Google Sheets API
             }
 
             @Override
             public void onFailure(Exception e) {
-                // Обработка ошибки входа
+                // Handle sign-in failure
             }
         });
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
-    // Метод для сохранения отчета
+    // Save report to the local database
     private void saveReport(String field1, String field2) {
         Report report = new Report();
         report.setField1(field1);
